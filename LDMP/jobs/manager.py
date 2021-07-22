@@ -29,6 +29,7 @@ class JobManager(QtCore.QObject):
     _known_finished_jobs: typing.Dict[uuid.UUID, Job]
     _known_deleted_jobs: typing.Dict[uuid.UUID, Job]
     _known_downloaded_jobs: typing.Dict[uuid.UUID, Job]
+    _known_failed_jobs: typing.Dict[uuid.UUID, Job]
 
     refreshed_local_state: QtCore.pyqtSignal = QtCore.pyqtSignal()
     refreshed_from_remote: QtCore.pyqtSignal = QtCore.pyqtSignal()
@@ -51,6 +52,7 @@ class JobManager(QtCore.QObject):
             models.JobStatus.FINISHED: self._known_finished_jobs,
             models.JobStatus.DELETED: self._known_deleted_jobs,
             models.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
+            models.JobStatus.FAILED: self._known_failed_jobs,
         }
 
     @property
@@ -59,6 +61,7 @@ class JobManager(QtCore.QObject):
             models.JobStatus.RUNNING,
             models.JobStatus.FINISHED,
             models.JobStatus.DOWNLOADED,
+            models.JobStatus.FAILED
         )
         result = []
         for status in relevant_statuses:
@@ -74,6 +77,11 @@ class JobManager(QtCore.QObject):
     def finished_jobs_dir(self) -> Path:
         return Path(
             conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "finished-jobs"
+
+    @property
+    def failed_jobs_dir(self) -> Path:
+        return Path(
+            conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "failed-jobs"
 
     @property
     def deleted_jobs_dir(self) -> Path:
@@ -110,6 +118,7 @@ class JobManager(QtCore.QObject):
         self._known_running_jobs = {}
         self._known_finished_jobs = {}
         self._known_deleted_jobs = {}
+        self._known_failed_jobs = {}
         self._known_downloaded_jobs = {}
 
     def refresh_local_state(self):
@@ -128,6 +137,8 @@ class JobManager(QtCore.QObject):
             j.id: j for j in self._get_local_jobs(models.JobStatus.DOWNLOADED)}
         self._known_deleted_jobs = {
             j.id: j for j in self._get_local_jobs(models.JobStatus.DELETED)}
+        self._known_failed_jobs = {
+            j.id: j for j in self._get_local_jobs(models.JobStatus.FAILED)}
         # NOTE: finished jobs are treated differently here because we also make sure
         # to delete those that are old and never got downloaded
         self._get_local_finished_jobs()
@@ -180,6 +191,7 @@ class JobManager(QtCore.QObject):
             relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
             self._refresh_local_running_jobs(relevant_remote_jobs)
             self._refresh_local_finished_jobs(relevant_remote_jobs)
+            self._refresh_local_failed_jobs(relevant_remote_jobs)
             self._refresh_local_generated_jobs()
             self._refresh_local_deleted_jobs()
         finally:
@@ -419,6 +431,38 @@ class JobManager(QtCore.QObject):
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
         raise NotImplementedError
 
+    def _refresh_local_failed_jobs(
+            self, remote_jobs: typing.List[Job]) -> typing.Dict[uuid.UUID, Job]:
+        """Update local directory of failed jobs by comparing with the remote jobs"""
+        local_failed_jobs = self._get_local_jobs(models.JobStatus.FAILED)
+        self._known_failed_jobs = {}
+        # first go over all previously known jobs and check if they are still failed
+        for old_failed_job in local_failed_jobs:
+            remote_job = find_job(old_failed_job, remote_jobs)
+            if remote_job is None:  # unexpected behavior, remove the local job file
+                self._remove_job_metadata_file(old_failed_job)
+                LDMP.logger.log(
+                    f"Could not find job {old_failed_job.id!r} on the remote server "
+                    f"anymore. Deleting job metadata file from the base directory... "
+                )
+            elif remote_job.status == models.JobStatus.FAILED:
+                self._known_failed_jobs[remote_job.id] = remote_job
+                self.write_job_metadata_file(remote_job)
+            else:  # job is not failed anymore - might have been cleared from server
+                self._remove_job_metadata_file(old_failed_job)
+        # now check for any new jobs (these might have been submitted by another client)
+        known_failed = [j.id for j in self._known_failed_jobs.values()]
+        for remote in remote_jobs:
+            remote_failed = remote.status == models.JobStatus.FAILED
+            if remote_failed and remote.id not in known_failed:
+                LDMP.logger.log(
+                    f"Found new remote job: {remote.id!r}. Adding it to local base "
+                    f"directory..."
+                )
+                self._known_failed_jobs[remote.id] = remote
+                self.write_job_metadata_file(remote)
+        return self._known_failed_jobs
+
     def _refresh_local_running_jobs(
             self, remote_jobs: typing.List[Job]) -> typing.Dict[uuid.UUID, Job]:
         """Update local directory of running jobs by comparing with the remote jobs"""
@@ -506,6 +550,7 @@ class JobManager(QtCore.QObject):
             models.JobStatus.FINISHED: self.finished_jobs_dir,
             models.JobStatus.RUNNING: self.running_jobs_dir,
             models.JobStatus.DELETED: self.deleted_jobs_dir,
+            models.JobStatus.FAILED: self.failed_jobs_dir,
             models.JobStatus.DOWNLOADED: self.datasets_dir,
         }[status]
         result = []
@@ -557,6 +602,8 @@ class JobManager(QtCore.QObject):
             base = self.running_jobs_dir
         elif job.status == models.JobStatus.FINISHED:
             base = self.finished_jobs_dir
+        elif job.status == models.JobStatus.FAILED:
+            base = self.failed_jobs_dir
         elif job.status == models.JobStatus.DELETED:
             base = self.deleted_jobs_dir
         elif job.status in (

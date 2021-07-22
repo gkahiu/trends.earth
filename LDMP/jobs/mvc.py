@@ -265,6 +265,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.progressBar.hide()
             self.download_tb.hide()
             self.add_to_canvas_tb.setEnabled(self.has_loadable_result())
+        elif self.job.status == models.JobStatus.FAILED:
+            self.progressBar.hide()
+            self.download_tb.hide()
+            self.add_to_canvas_tb.setEnabled(False)
 
     def has_loadable_result(self):
         result = False
