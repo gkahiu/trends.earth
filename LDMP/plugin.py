@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -22,6 +22,9 @@ from qgis.PyQt.QtGui import QIcon
 from LDMP import __version__, __release_date__, __revision__, log
 from LDMP.settings import DlgSettings
 from LDMP.download_data import DlgDownload
+
+from LDMP.download_lpks import DlgDownload as DlgDownloadLPKS
+
 from LDMP.calculate import DlgCalculate
 from LDMP.jobs import DlgJobs
 from LDMP.timeseries import DlgTimeseries
@@ -69,6 +72,7 @@ class LDMPPlugin(object):
         self.dlg_timeseries = DlgTimeseries()
         self.dlg_visualization = DlgVisualization()
         self.dlg_download = DlgDownload()
+        self.dlg_download_lpks = DlgDownloadLPKS()
         self.dlg_data_io = DlgDataIO()
         self.dlg_about = DlgAbout()
 
@@ -78,7 +82,7 @@ class LDMPPlugin(object):
 
     def tr(self, message):
         return QCoreApplication.translate("plugin", message)
-        
+
     def add_action(
             self,
             icon_path,
@@ -204,6 +208,13 @@ class LDMPPlugin(object):
             status_tip=self.tr('Download raw datasets'))
 
         self.add_action(
+            ':/plugins/LDMP/icons/island_svg.svg',
+            text=self.tr(u'Download LPKS data'),
+            callback=self.run_download_lpks,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Download lpks datasets'))
+
+        self.add_action(
             ':/plugins/LDMP/icons/info.svg',
             text=self.tr(u'About'),
             callback=self.run_about,
@@ -230,6 +241,10 @@ class LDMPPlugin(object):
     def run_download(self):
         self.dlg_download.show()
         result = self.dlg_download.exec_()
+
+    def run_download_lpks(self):
+        self.dlg_download_lpks.show()
+        result = self.dlg_download_lpks.exec_()
 
     def run_calculate(self):
         # show the dialog

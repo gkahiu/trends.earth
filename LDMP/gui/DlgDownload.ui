@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>642</width>
-    <height>337</height>
+    <width>664</width>
+    <height>343</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,7 +24,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QTabWidget" name="TabBox">
+    <widget class="QTabWidget" name="lpks_object">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -35,7 +35,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="SelectData">
       <attribute name="title">
@@ -60,7 +60,7 @@
           <bool>true</bool>
          </property>
          <attribute name="horizontalHeaderVisible">
-          <bool>true</bool>
+          <bool>false</bool>
          </attribute>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>true</bool>
@@ -247,29 +247,38 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="lpks_credentials">
+      <attribute name="title">
+       <string>LPKS Credentials</string>
+      </attribute>
+      <widget class="QLineEdit" name="email_lpks">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>70</y>
+         <width>113</width>
+         <height>25</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>50</y>
+         <width>68</width>
+         <height>19</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>email</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="1">
-      <widget class="QPushButton" name="button_next">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Next</string>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="0" colspan="2">
       <widget class="QPushButton" name="button_calculate">
        <property name="sizePolicy">
@@ -286,6 +295,25 @@
        </property>
        <property name="text">
         <string>Submit download request</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="button_next">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Next</string>
        </property>
       </widget>
      </item>
@@ -313,7 +341,7 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>TabBox</tabstop>
+  <tabstop>lpks_object</tabstop>
   <tabstop>button_prev</tabstop>
   <tabstop>button_next</tabstop>
   <tabstop>button_calculate</tabstop>

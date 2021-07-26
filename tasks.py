@@ -58,7 +58,7 @@ def get_version(c):
     with open(c.plugin.version_file_raw, 'r') as f:
         return f.readline().strip()
 
-# Handle long filenames or readonly files on windows, see: 
+# Handle long filenames or readonly files on windows, see:
 # http://bit.ly/2g58Yxu
 def rmtree(top):
     for root, dirs, files in os.walk(top, topdown=False):
@@ -114,7 +114,7 @@ def set_version(c, v=None):
         return
     else:
         version_update = True
-    
+
     revision = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip('\n')[0:8]
     release_date = datetime.now(timezone.utc).strftime('%Y/%m/%d %H:%M:%SZ')
 
@@ -138,8 +138,8 @@ def set_version(c, v=None):
         print('Setting version to {} in metadata.txt'.format(v))
         sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
         _replace(os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
-    
-        # For the GEE config files the version can't have a dot, so convert to 
+
+        # For the GEE config files the version can't have a dot, so convert to
         # underscore
         v_gee = v.replace('.', '_')
         if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
@@ -164,18 +164,18 @@ def set_version(c, v=None):
                 elif file == 'requirements.txt':
                     print('Setting version to {} in {}'.format(v, filepath))
                     if (int(v.split('.')[-1]) % 2) == 0:
-                        # Last number in version string is even, so use a tagged version of 
+                        # Last number in version string is even, so use a tagged version of
                         # schemas matching this version
                         _replace(filepath, requirements_txt_regex, '\g<1>v' + v)
                     else:
-                        # Last number in version string is odd, so this is a development 
+                        # Last number in version string is odd, so this is a development
                         # version, so use development version of schemas
                         _replace(filepath, requirements_txt_regex, '\g<1>develop')
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
                     _replace(filepath, init_version_regex, '\g<1>' + v)
-        
+
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile('("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE)
@@ -183,11 +183,11 @@ def set_version(c, v=None):
 
         print('Setting version to {} in package requirements.txt'.format(v))
         if (int(v.split('.')[-1]) % 2) == 0:
-            # Last number in version string is even, so use a tagged version of 
+            # Last number in version string is even, so use a tagged version of
             # schemas matching this version
             _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
         else:
-            # Last number in version string is odd, so this is a development 
+            # Last number in version string is odd, so this is a development
             # version, so use development version of schemas
             _replace('requirements.txt', requirements_txt_regex, '\g<1>develop')
 
@@ -220,7 +220,7 @@ def release_github(c):
 @task()
 def set_tag(c):
     v = get_version(c)
-    ret = subprocess.run(['git', 'diff-index', 'HEAD', '--'], 
+    ret = subprocess.run(['git', 'diff-index', 'HEAD', '--'],
                           capture_output=True, text=True)
     if ret.stdout != '':
         ret = query_yes_no('Uncommitted changes exist in repository. Commit these?')
@@ -231,7 +231,7 @@ def set_tag(c):
             print('Changes not committed - VERSION TAG NOT SET'.format(v))
 
     print('Tagging version {} and pushing tag to origin'.format(v))
-    ret = subprocess.run(['git', 'tag', '-l', 'v{}'.format(v)], 
+    ret = subprocess.run(['git', 'tag', '-l', 'v{}'.format(v)],
                          capture_output=True, text=True)
     ret.check_returncode()
     if 'v{}'.format(v) in ret.stdout:
@@ -280,7 +280,7 @@ def tecli_publish(c, script=None):
     dirs = next(os.walk(c.gee.script_dir))[1]
     n = 0
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir) 
+        script_dir = os.path.join(c.gee.script_dir, dir)
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                 (script == None or script == dir):
             print('Publishing {}...'.format(dir))
@@ -300,7 +300,7 @@ def tecli_run(c, script, params=None):
     n = 0
     script_dir = None
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir) 
+        script_dir = os.path.join(c.gee.script_dir, dir)
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                  script == dir:
             print('Running {}...'.format(dir))
@@ -323,7 +323,7 @@ def tecli_info(c, script=None):
     n = 0
     script_dir = None
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir) 
+        script_dir = os.path.join(c.gee.script_dir, dir)
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                 (script == None or script == dir):
             print('Checking info on {}...'.format(dir))
@@ -341,7 +341,7 @@ def tecli_logs(c, script):
     n = 0
     script_dir = None
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir) 
+        script_dir = os.path.join(c.gee.script_dir, dir)
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                  script == dir:
             print('Checking logs for {}...'.format(dir))
@@ -388,7 +388,7 @@ def plugin_setup(c, clean=False, pip='pip'):
 
     os.environ['PYTHONPATH'] = ext_libs
     for req in runtime + test:
-        # Don't install numpy with pyqtgraph as QGIS already has numpy. 
+        # Don't install numpy with pyqtgraph as QGIS already has numpy.
         # So use the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
             subprocess.check_call([pip, 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
@@ -399,8 +399,8 @@ def plugin_setup(c, clean=False, pip='pip'):
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3',
             'fast': 'Skip compiling numba files',
-            'symlink': 'Skip compiling numba files'})
-def plugin_install(c, clean=False, version=3, profile='default', fast=False, symlink=True):
+            'symlink_off': 'Dont Use Symlink when False'})
+def plugin_install(c, clean=False, version=3, profile='default', fast=False, symlink_off=False):
     '''install plugin to qgis'''
     set_version(c)
     compile_files(c, version, clean, fast)
@@ -426,7 +426,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False, sym
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
 
-    if (not hasattr(os, 'symlink') or (not symlink):
+    if (not hasattr(os, 'symlink') or (symlink_off)):
         print("Copying plugin to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
         if clean:
             if os.path.exists(dst_this_plugin):
@@ -471,7 +471,7 @@ def compile_files(c, version, clean, fast=False):
                 (base, ext) = os.path.splitext(ui)
                 output = "{0}.py".format(base)
                 if clean or file_changed(ui, output):
-                    # Fix the links to c header files that Qt Designer adds to 
+                    # Fix the links to c header files that Qt Designer adds to
                     # UI files when QGIS custom widgets are used
                     ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
                     _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
@@ -514,7 +514,7 @@ def compile_files(c, version, clean, fast=False):
             else:
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
-    
+
 
 def file_changed(infile, outfile):
     try:
@@ -601,7 +601,7 @@ def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
-    # Below is necessary just to avoid warning messages regarding missing image 
+    # Below is necessary just to avoid warning messages regarding missing image
     # files when Sphinx is used later on
     print("Localizing resources...")
     _localize_resources(c, 'en')
@@ -694,7 +694,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             for n in range(3):
                 # Run multiple times to ensure crossreferences are right
                 subprocess.check_call(['xelatex', doc], cwd=tex_dir)
-            # Move the PDF to the html folder so it will be uploaded with the 
+            # Move the PDF to the html folder so it will be uploaded with the
             # site
             doc_pdf = os.path.splitext(doc)[0] + '.pdf'
             out_dir = '{builddir}/html/{lang}/pdfs'.format(builddir=c.sphinx.builddir, lang=language)
@@ -798,7 +798,7 @@ def _make_zip(zipFile, c):
             relpath = os.path.relpath(root)
             zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
         _filter_excludes(root, dirs, c)
- 
+
 @task(help={'clean': 'Clean out dependencies before packaging',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
 def zipfile_deploy(c, clean=False, pip='pip'):
@@ -819,13 +819,13 @@ def zipfile_deploy(c, clean=False, pip='pip'):
     print('Uploading package to S3')
     data = open(filename, 'rb')
     client.put_object(Key='sharing/{}'.format(os.path.basename(filename)),
-                      Body=data, 
+                      Body=data,
                       Bucket=c.sphinx.deploy_s3_bucket)
     data.close()
     print('Package uploaded')
 
 
-# Function 
+# Function
 def _recursive_dir_create(d):
     if sys.version_info[0] < 3:
         if not os.path.exists(d):
@@ -844,18 +844,18 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
     except IOError:
         print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
-    
+
     objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
     for obj in objects:
         filename = os.path.basename(obj['Key'])
 
         if filename == '':
-            # Catch the case of the key pointing to the root of the bucket and 
+            # Catch the case of the key pointing to the root of the bucket and
             # skip it
             continue
         local_path = os.path.join(local_folder, filename)
 
-        # First ensure all the files that are on S3 are up to date relative to 
+        # First ensure all the files that are on S3 are up to date relative to
         # the local files, copying files in either direction as necessary
         if os.path.exists(local_path):
             if not _check_hash(obj['ETag'].strip('"'), local_path):
@@ -865,7 +865,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
                     print('Local version of {} is newer than on S3 - copying to S3.'.format(filename))
                     data = open(local_path, 'rb')
                     client.put_object(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
-                                      Body=data, 
+                                      Body=data,
                                       Bucket=bucket)
                     data.close()
                 else:
@@ -893,7 +893,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
             print('S3 is missing {} - copying to S3.'.format(f))
             data = open(f, 'rb')
             client.put_object(Key='{}/{}'.format(s3_prefix, os.path.basename(f)),
-                              Body=data, 
+                              Body=data,
                               Bucket=bucket)
             data.close()
 
@@ -956,13 +956,13 @@ def binaries_deploy(c):
     zipfile_basename = 'trends_earth_binaries_{}'.format(v)
     files = find_binaries(c, c.plugin.numba.binary_folder, v)
     with TemporaryDirectory() as tmpdir:
-        # Make module dir within the tmp dir, inside a folder containing the 
-        # version string - this is needed to allow clean unzipping of the 
-        # modules later on machines that might have multiple versions of the 
+        # Make module dir within the tmp dir, inside a folder containing the
+        # version string - this is needed to allow clean unzipping of the
+        # modules later on machines that might have multiple versions of the
         # binaries installed in the same folder
         moduledir = os.path.join(tmpdir, zipfile_basename, 'trends_earth_binaries')
         os.makedirs(moduledir)
-        with open(os.path.join(moduledir, '__init__.py'), 'w') as fp: 
+        with open(os.path.join(moduledir, '__init__.py'), 'w') as fp:
             pass
         # Copy binaries to temp folder for later zipping
         for f in files:
@@ -999,13 +999,13 @@ def binaries_compile(c, clean=False, python='python'):
     for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
         files = find_binaries(c, folder)
         for f in files:
-            # Add version strings to the compiled files so they won't overwrite 
+            # Add version strings to the compiled files so they won't overwrite
             # files from other Trends.Earth versions when synced to S3
             module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
             out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
             out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
             shutil.move(os.path.join(folder, f), out_path_with_v)
-    
+
     print("Compiled {} numba files.".format(n))
 
 
@@ -1016,9 +1016,9 @@ def binaries_compile(c, clean=False, python='python'):
 ns = Collection(set_version, set_tag,
                 plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
-                tecli_login, tecli_clear, tecli_config, tecli_publish, 
-                tecli_run, tecli_info, tecli_logs, zipfile_build, 
-                zipfile_deploy, binaries_compile, binaries_sync, 
+                tecli_login, tecli_clear, tecli_config, tecli_publish,
+                tecli_run, tecli_info, tecli_logs, zipfile_build,
+                zipfile_deploy, binaries_compile, binaries_sync,
                 binaries_deploy, release_github,
                 testdata_sync)
 
