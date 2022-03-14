@@ -42,3 +42,6 @@ def run_all():
     #     print('Waiting for completion of GEE tasks')
     #     sleep(10)
 
+if __name__ == '__main__':
+    run_all()
+

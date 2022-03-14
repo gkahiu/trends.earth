@@ -1,0 +1,41 @@
+name: build
+
+on:
+  push:
+    branches:
+      - unit_tests
+
+jobs:
+  build:
+    name: Unit and Integration Tests
+    strategy:
+      matrix:
+        qgis-version-tag:
+        - qgis/qgis:release-3_22
+    env:
+      PLUGIN_NAME: LDMP
+
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ matrix.qgis-version-tag }}
+      env:
+        DISPLAY: ":99"
+      volumes:
+        - /tests_directory
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+            python3 -m pip install --upgrade pip
+            python3 -m pip install -r requirements.txt
+
+      - name: Install plugin
+        run: qgis_setup.sh $PLUGIN_NAME
+
+      - name: Run tests
+        run: |
+          sh -c "/usr/bin/Xvfb :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset -nolisten tcp &"
+          qgis_testrunner.sh $PLUGIN_NAME.test.testplugin
