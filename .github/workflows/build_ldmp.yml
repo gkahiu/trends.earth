@@ -33,9 +33,7 @@ jobs:
             python3 -m pip install -r requirements.txt
 
       - name: Install plugin
-        run: |
-            cd /tests_directory
-            ls -a
+        run: qgis_setup.sh $PLUGIN_NAME
 
       - name: Run tests
         run: |
