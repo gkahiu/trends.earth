@@ -1,4 +1,4 @@
-name: build
+name: build_ldmp
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
 
       - name: Install plugin
         run: |
-            cd /tests_directory
+            pwd
             ls -a
 
       - name: Run tests
