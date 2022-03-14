@@ -21,7 +21,7 @@ jobs:
       env:
         DISPLAY: ":99"
       volumes:
-        - /tests_directory
+        - ${{github.workspace}}:/tests_directory
 
     steps:
       - name: Check out repo
@@ -33,7 +33,9 @@ jobs:
             python3 -m pip install -r requirements.txt
 
       - name: Install plugin
-        run: echo "$GITHUB_WORKSPACE"
+        run: |
+            cd /tests_directory
+            ls -a
 
       - name: Run tests
         run: |
