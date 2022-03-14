@@ -2,8 +2,7 @@
 
 [![Trends.Earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)](http://trends.earth)
 
-[![Build
-Status](https://travis-ci.org/ConservationInternational/trends.earth.svg?branch=master)](https://travis-ci.org/ConservationInternational/trends.earth)
+[![build](https://github.com/gkahiu/trends.earth/actions/workflows/build_ldmp.yml/badge.svg?branch=unit_tests)](https://github.com/gkahiu/trends.earth/actions/workflows/build_ldmp.yml)
 
 `Trends.Earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for
 monitoring land change. `Trends.Earth` is a [QGIS](http://www.qgis.org) plugin

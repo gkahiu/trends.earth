@@ -13,7 +13,7 @@ jobs:
         qgis-version-tag:
         - qgis/qgis:release-3_22
     env:
-      PLUGIN_NAME: LDMP
+      PLUGIN_NAME: trends.earth
 
     runs-on: ubuntu-latest
     container:
