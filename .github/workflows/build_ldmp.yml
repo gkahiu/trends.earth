@@ -42,11 +42,6 @@ jobs:
       - name: Install plugin
         run: qgis_setup.sh $PLUGIN_NAME
 
-      - name: Use sym link
-        run: |
-          sh -c "rm -f $PLUGIN_PATH"
-          sh -c "ln -s /tests_directory/$PLUGIN_NAME $PLUGIN_PATH"
-
       - name: Run tests
         run: |
           sh -c "/usr/bin/Xvfb :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset -nolisten tcp &"
