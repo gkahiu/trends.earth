@@ -8,6 +8,7 @@ from LDMP.calculate_prod import DlgCalculateProd
 
 from LDMP.test.unit.test_dialog_settings import SettingsUnitSuite
 from LDMP.test.unit.test_calculate_ldn import CalculateLDNUnitSuite
+from LDMP.test.unit.test_reports import ReportsFrameworkTests
 from LDMP.test.integration.test_calculate_ldn import CalculateLDNIntegrationSuite
 from LDMP.test.integration.test_calculate_urban import CalculateUrbanIntegrationSuite
 
@@ -26,8 +27,15 @@ def integrationTests():
 
 
 def run_all():
+    '''
     unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(integrationTests())
     unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(unitTests())
+    '''
+    suite = unittest.TestSuite()
+    suite.addTests(unittest.makeSuite(ReportsFrameworkTests))
+
+    runner = unittest.TextTestRunner(verbosity=2, stream=sys.stdout)
+    runner.run(suite)
     # while True:
     #     if not gee_task_queue.empty():
     #         # update status of all items in the queue
@@ -43,5 +51,5 @@ def run_all():
     #     sleep(10)
 
 if __name__ == '__main__':
-    print('Tests entry point')
+    run_all()
 
