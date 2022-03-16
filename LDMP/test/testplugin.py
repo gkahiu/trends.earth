@@ -43,5 +43,5 @@ def run_all():
     #     sleep(10)
 
 if __name__ == '__main__':
-    run_all()
+    print('Tests entry point')
 
