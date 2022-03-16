@@ -31,7 +31,12 @@ jobs:
       - name: Install dependencies
         run: |
             python3 -m pip install --upgrade pip
-            python3 -m pip install -r requirements.txt
+            python3 -m pip install -r requirements-dev.txt
+
+      - name: Pre-install configuration
+        run: |
+          invoke plugin-setup
+          invoke set-version -v 1.99.6
 
       - name: Install plugin
         run: qgis_setup.sh $PLUGIN_NAME
