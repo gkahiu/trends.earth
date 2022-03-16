@@ -2,7 +2,7 @@
 
 import unittest
 
-from LDMP.utils import qgis_process_path
+# from LDMP.utils import qgis_process_path
 
 
 class ReportsFrameworkTests(unittest.TestCase):
@@ -11,7 +11,7 @@ class ReportsFrameworkTests(unittest.TestCase):
     def test_qgis_process_path(self):
         """Path to qgis_process exists."""
         # proc_path = qgis_process_path()
-        self.assertIsNot('John', '')
+        self.assertEqual('John','Kahiu', 'Names are not equal')
 
 
 if __name__ == '__main__':
