@@ -35,7 +35,7 @@ def run_all():
     suite.addTests(unittest.makeSuite(ReportsFrameworkTests))
 
     runner = unittest.TextTestRunner(verbosity=2, stream=sys.stdout)
-    runner.run(suite)
+    runner.run(suit)
     # while True:
     #     if not gee_task_queue.empty():
     #         # update status of all items in the queue
