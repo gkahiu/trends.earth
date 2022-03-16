@@ -37,7 +37,7 @@ jobs:
       - name: Run invoke tasks
         run: |
           invoke plugin-setup
-          invoke set-version -v cat version.txt
+          invoke set-version -v $(cat version.txt)
 
       - name: Install plugin
         run: qgis_setup.sh $PLUGIN_NAME
