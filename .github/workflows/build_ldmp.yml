@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         qgis-version-tag:
-        - qgis/qgis:release-3_18
+        - qgis/qgis:release-3_22
     env:
       PLUGIN_NAME: LDMP
       PLUGIN_PATH: /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/$PLUGIN_NAME

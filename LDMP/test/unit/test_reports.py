@@ -8,7 +8,7 @@ from LDMP.utils import qgis_process_path
 class ReportsFrameworkTests(unittest.TestCase):
     """Unit tests for the reporting framework."""
 
-    def qgis_process_path(self):
+    def test_qgis_process_path(self):
         """Path to qgis_process exists."""
         proc_path = qgis_process_path()
         self.assertIsNot(proc_path, '')
