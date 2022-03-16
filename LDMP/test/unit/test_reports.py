@@ -17,7 +17,7 @@ class ReportsFrameworkTests(unittest.TestCase):
     def test_exec_qgis_process(self):
         # Assert qgis_process can be executed.
         proc_path = qgis_process_path()
-        completed_process = subprocess.run([proc_path, 'list'])
+        completed_process = subprocess.run([proc_path, 'plugins'])
 
         self.assertEqual(
             completed_process.returncode,
@@ -25,13 +25,5 @@ class ReportsFrameworkTests(unittest.TestCase):
             'Execute qgis_process failed'
         )
 
-    def test_plotly_exists(self):
-        # Assert plotly library exists.
-        try:
-            import plotly.graph_objects
-            status = True
-        except ImportError:
-            status = False
 
-        self.assertTrue(status, 'Plotly library not found.')
 
