@@ -31,7 +31,7 @@ def run_all():
     suite.addTests(unittest.makeSuite(ReportsFrameworkTests))
 
     runner = unittest.TextTestRunner(verbosity=2, stream=sys.stdout)
-    runner.run(suit)
+    runner.run(suite)
 
 
 if __name__ == '__main__':

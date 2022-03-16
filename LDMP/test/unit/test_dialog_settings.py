@@ -23,7 +23,7 @@ from qgis.PyQt.QtWidgets import QApplication
 
 from LDMP.settings import DlgSettingsLogin
 
-from LDMP.test import regular_keys
+# from LDMP.test import regular_keys
 
 
 class DialogSettingsLoginTests(unittest.TestCase):
