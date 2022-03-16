@@ -22,7 +22,7 @@ jobs:
       env:
         DISPLAY: ":99"
       volumes:
-        - ${{github.workspace}}:/tests_directory
+        - /tests_directory
 
     steps:
       - name: Check out repo
