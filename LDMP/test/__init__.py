@@ -19,7 +19,7 @@ from qgis.PyQt.QtCore import QTimer, Qt
 from qgis.PyQt.QtWidgets import QMessageBox, QApplication
 from qgis.PyQt.QtTest import QTest
 
-from LDMP.layers import add_layer, get_file_metadata
+# from LDMP.layers import add_layer, get_file_metadata
 
 
 with open(os.path.join(os.path.dirname(__file__), 'trends.earth_test_user_credentials.json'), 'r') as fin:
