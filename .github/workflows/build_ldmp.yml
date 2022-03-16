@@ -39,7 +39,7 @@ jobs:
       - name: Use sym link
         run: |
           sh -c "rm -f $PLUGIN_PATH"
-          sh -c "ln -s /tests_directory/$PLUGIN_NAME $PLUGIN_PATH
+          sh -c "ln -s /tests_directory/$PLUGIN_NAME $PLUGIN_PATH"
 
       - name: Run tests
         run: |
