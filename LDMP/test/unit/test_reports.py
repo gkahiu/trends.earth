@@ -11,10 +11,6 @@ class ReportsFrameworkTests(unittest.TestCase):
     def test_qgis_process_path(self):
         """Path to qgis_process exists."""
         # proc_path = qgis_process_path()
-        self.assertEqual('John','Kahiu', 'Names are not equal')
+        #self.assertEqual('John','Kahiu', 'Names are not equal')
+        self.sfdfdfdfdfdfd
 
-
-if __name__ == '__main__':
-    suite = unittest.makeSuite(ReportsFrameworkTests)
-    runner = unittest.TextTestRunner(verbosity=2)
-    runner.run(suite)
