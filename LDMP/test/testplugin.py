@@ -27,28 +27,12 @@ def integrationTests():
 
 
 def run_all():
-    '''
-    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(integrationTests())
-    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(unitTests())
-    '''
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(ReportsFrameworkTests))
 
     runner = unittest.TextTestRunner(verbosity=2, stream=sys.stdout)
     runner.run(suit)
-    # while True:
-    #     if not gee_task_queue.empty():
-    #         # update status of all items in the queue
-    #         # process the next available task if it is ready
-    #         gee_task_queue.update_status()
-    #         task = gee_task_queue.get()
-    #         while task:
-    #             if task:
-    #                 unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(unittest.makeSuite(gee_task_queue.get()[1]))
-    #     else:
-    #         break
-    #     print('Waiting for completion of GEE tasks')
-    #     sleep(10)
+
 
 if __name__ == '__main__':
     run_all()
