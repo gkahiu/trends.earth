@@ -27,9 +27,7 @@ jobs:
 
     steps:
       - name: Check out repo
-        uses: |
-            git config --global --add safe.directory "$GITHUB_WORKSPACE"
-            actions/checkout@v2
+        uses: actions/checkout@v3 
 
       - name: Install dependencies
         run: |
