@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         qgis-version-tag:
-        - qgis/qgis:release-3_22
+        - qgis/qgis:release-3_24
 
     env:
       PLUGIN_NAME: LDMP
@@ -31,7 +31,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-            python3 -m pip install --upgrade pip
             python3 -m pip install -r requirements-dev.txt
             python3 -m pip install plotly==5.6.0
 
