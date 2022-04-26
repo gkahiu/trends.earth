@@ -17,7 +17,7 @@ class ReportsFrameworkTests(unittest.TestCase):
     def test_exec_qgis_process(self):
         # Assert qgis_process can be executed.
         proc_path = qgis_process_path()
-        completed_process = subprocess.run([proc_path, 'plugins'])
+        completed_process = subprocess.run([proc_path, 'plugins', 'enable', 'LDMP'])
 
         self.assertEqual(
             completed_process.returncode,
