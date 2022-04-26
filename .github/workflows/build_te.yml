@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Permission issue workaround
-        run:  git config --global --add safe.directory ${{github.workspace}}
+        run:  git config --global --add safe.directory $(pwd)
 
       - name: Check out repo
         uses: actions/checkout@v3
