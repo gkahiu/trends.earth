@@ -27,8 +27,8 @@ jobs:
 
     steps:
       - name: Permission issue workaround
-        run:  git config --global --add safe.directory /__w/trends.earth/trends.earth
-        
+        run:  git config --global --add safe.directory ${{github.workspace}}
+
       - name: Check out repo
         uses: actions/checkout@v3
 
