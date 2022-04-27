@@ -28,6 +28,7 @@ class ReportsFrameworkTests(unittest.TestCase):
             'Execute qgis_process failed'
         )
 
+    '''
     def test_plugin_entry(self):
         pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
         config = ConfigParser()
@@ -43,6 +44,7 @@ class ReportsFrameworkTests(unittest.TestCase):
         # plugins = qgis.utils.available_plugins
         # pstr = ', '.join(plugins)
         # raise NameError(pstr)
+    '''
 
 
 
