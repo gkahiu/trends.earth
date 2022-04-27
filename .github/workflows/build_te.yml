@@ -15,8 +15,7 @@ jobs:
 
     env:
       PLUGIN_NAME: LDMP
-      PLUGIN_PATH: /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/$PLUGIN_NAME
-      CONF_MASTER_FOLDER: /root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini
+      PLUGIN_PATH: ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/$PLUGIN_NAME
 
     runs-on: ubuntu-latest
     container:
@@ -48,6 +47,10 @@ jobs:
         run:  |
           mkdir -p $PLUGIN_PATH
           cp -r /tests_directory/LDMP $PLUGIN_PATH
+          sh -c "cd ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins"
+          sh -c "ls -a"
+          sh -c "cd $PLUGIN_PATH"
+          sh -c "ls -a"
 
       - name: Install plugin
         run:  qgis_setup.sh $PLUGIN_NAME
