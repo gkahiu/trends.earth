@@ -18,7 +18,7 @@ class ReportsFrameworkTests(unittest.TestCase):
     def test_exec_qgis_process(self):
         # Assert qgis_process can be executed.
         proc_path = qgis_process_path()
-        completed_process = subprocess.run([proc_path, 'list'])
+        completed_process = subprocess.run([proc_path, 'plugins'])
 
         self.assertEqual(
             completed_process.returncode,
@@ -33,9 +33,7 @@ class ReportsFrameworkTests(unittest.TestCase):
         sec = 'PythonPlugins'
         if sec not in config.sections():
             print('Python Plugins section not found')
-        status = config[sec]
-        print(str(status))
-        ref_stat = True
-        self.assertTrue(ref_stat)
+        te_enabled = config[sec]['LDMP']
+        self.assertEqual(te_enabled, 'true')
 
 
