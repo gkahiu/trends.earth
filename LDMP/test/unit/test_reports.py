@@ -1,5 +1,6 @@
 # Unit tests for the reporting framework.
 
+from configparser import ConfigParser
 import subprocess
 import unittest
 
@@ -24,5 +25,17 @@ class ReportsFrameworkTests(unittest.TestCase):
             0,
             'Execute qgis_process failed'
         )
+
+    def test_plugin_entry(self):
+        pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
+        config = ConfigParser()
+        config.read(pt)
+        sec = 'PythonPlugins'
+        if sec not in config.sections():
+            print('Python Plugins section not found')
+        status = config[sec]
+        print(str(status))
+        ref_stat = True
+        self.assertTrue(ref_stat)
 
 
