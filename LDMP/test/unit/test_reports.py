@@ -32,7 +32,7 @@ class ReportsFrameworkTests(unittest.TestCase):
         pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
         config = ConfigParser()
         config.read(pt)
-        plugins = config['PythonPlugins']
+        plugins = config['PythonPlugins']['LDMP']
         raise NameError(str(plugins))
         # qgis.utils.updateAvailablePlugins()
         # plugins = qgis.utils.available_plugins
