@@ -24,7 +24,7 @@ jobs:
       env:
         DISPLAY: ":99"
       volumes:
-        - ${{github.workspace}}:/tests_directory
+        - ${{github.workspace}}/LDMP:/tests_directory
 
     steps:
       - name: Permission issue workaround
@@ -47,10 +47,15 @@ jobs:
       - name: Install plugin
         run: qgis_setup.sh $PLUGIN_NAME
 
-      - name: Dir info
+      - name: Plugins dir info
         run:  |
           sh -c "cd /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins"
           sh -c "ls -a"
+
+      - name: Tests directory dir info
+        run: |
+            sh -c "cd /tests_directory"
+            sh -c "ls -a"
 
       - name: Run tests
         run: |
