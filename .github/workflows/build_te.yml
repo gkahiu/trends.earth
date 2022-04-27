@@ -49,7 +49,7 @@ jobs:
 
       - name: Dir info
         run:  |
-          sh -c "cd /tests_directory"
+          sh -c "cd /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins"
           sh -c "ls -a"
 
       - name: Run tests
