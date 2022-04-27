@@ -24,7 +24,7 @@ jobs:
       env:
         DISPLAY: ":99"
       volumes:
-        - ${{github.workspace}}/LDMP:/tests_directory
+        - ${{github.workspace}}:/tests_directory
 
     steps:
       - name: Permission issue workaround
