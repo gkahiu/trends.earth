@@ -46,4 +46,4 @@ jobs:
       - name: Copy plugin dir
         run:  |
           mkdir -p $PLUGIN_PATH
-          ls /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins
+          ls -l $PLUGIN_PATH
