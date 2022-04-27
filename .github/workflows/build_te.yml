@@ -45,22 +45,5 @@ jobs:
 
       - name: Copy plugin dir
         run:  |
-          mkdir -p $PLUGIN_PATH
-          cp -r /tests_directory/LDMP $PLUGIN_PATH
-          sh -c "cd /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins"
-          sh -c "ls -a"
-          sh -c "cd $PLUGIN_PATH"
-          sh -c "ls -a"
-
-      - name: Install plugin
-        run:  qgis_setup.sh $PLUGIN_NAME
-
-      - name: Plugins dir info
-        run:  |
-          sh -c "cd /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins"
-          sh -c "ls -a"
-
-      - name: Run tests
-        run: |
-          sh -c "/usr/bin/Xvfb :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset -nolisten tcp &"
-          qgis_testrunner.sh $PLUGIN_NAME.test.testplugin.run_all
+          cd /tests_directory/$PLUGIN_NAME
+          ls -a
