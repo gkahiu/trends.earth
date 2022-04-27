@@ -30,6 +30,7 @@ class ReportsFrameworkTests(unittest.TestCase):
 
     def test_plugin_entry(self):
         pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
+        qgis.utils.updateAvailablePlugins()
         plugins = qgis.utils.available_plugins
         pstr = ', '.join(plugins)
         raise NameError(pstr)
