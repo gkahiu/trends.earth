@@ -46,5 +46,5 @@ jobs:
       - name: Copy plugin dir
         run:  |
           mkdir -p -v /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP
-          cp -r -v /tests_directory/LDMP /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP
+          cp -r -v /tests_directory/LDMP /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins
           ls /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP
