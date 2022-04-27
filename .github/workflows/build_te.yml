@@ -15,7 +15,7 @@ jobs:
 
     env:
       PLUGIN_NAME: LDMP
-      PLUGIN_PATH: ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/$PLUGIN_NAME
+      PLUGIN_PATH: /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/$PLUGIN_NAME
       CONF_MASTER_FOLDER: /root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini
 
     runs-on: ubuntu-latest
@@ -44,18 +44,18 @@ jobs:
           invoke plugin-setup
           invoke set-version -v $(cat version.txt)
 
+      - name: Copy plugin dir
+        run:  |
+          mkdir -p $PLUGIN_PATH
+          cp -r /tests_directory/LDMP $PLUGIN_PATH
+
       - name: Install plugin
-        run: qgis_setup.sh $PLUGIN_NAME
+        run:  qgis_setup.sh $PLUGIN_NAME
 
       - name: Plugins dir info
         run:  |
           sh -c "cd /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins"
           sh -c "ls -a"
-
-      - name: Tests directory dir info
-        run: |
-            sh -c "cd /tests_directory"
-            sh -c "ls -a"
 
       - name: Run tests
         run: |
