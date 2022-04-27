@@ -4,6 +4,8 @@ from configparser import ConfigParser
 import subprocess
 import unittest
 
+import qgis.utils
+
 from LDMP.utils import qgis_process_path
 
 
@@ -28,12 +30,9 @@ class ReportsFrameworkTests(unittest.TestCase):
 
     def test_plugin_entry(self):
         pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
-        config = ConfigParser()
-        config.read(pt)
-        sec = 'PythonPlugins'
-        if sec not in config.sections():
-            print('Python Plugins section not found')
-        te_enabled = config[sec]['LDMP']
-        self.assertEqual(te_enabled, 'true')
+        plugins = qgis.utils.available_plugins
+        pstr = ', '.join(plugins)
+        raise NameError(pstr)
+
 
 
