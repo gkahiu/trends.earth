@@ -15,7 +15,7 @@ jobs:
 
     env:
       PLUGIN_NAME: LDMP
-      PLUGIN_PATH: /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/$PLUGIN_NAME
+      PLUGIN_PATH: ~/.local/share/QGIS/QGIS3/profiles/default/python/plugins/$PLUGIN_NAME
 
     runs-on: ubuntu-latest
     container:
