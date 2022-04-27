@@ -45,5 +45,5 @@ jobs:
 
       - name: Copy plugin dir
         run:  |
-          mkdir -p $PLUGIN_PATH
-          ls -l $PLUGIN_PATH
+          mkdir -p -v $PLUGIN_PATH
+          ls /tests_directory/LDMP
