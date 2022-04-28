@@ -51,7 +51,7 @@ jobs:
 
       - name: Current user
         run:  |
-            sh -c "echo $USER"
+            echo $USER
 
       - name: Install plugin
         run:  qgis_setup.sh $PLUGIN_NAME

@@ -4,7 +4,6 @@ import subprocess
 import unittest
 
 import qgis.utils
-from qgis.core import QgsApplication
 
 from LDMP.utils import qgis_process_path
 
@@ -30,8 +29,8 @@ class ReportsFrameworkTests(unittest.TestCase):
 
     def test_plugin_entry(self):
         pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
-        plugin_path = QgsApplication.instance().pluginPath()
-        raise NameError(plugin_path)
+        plugin_paths = qgis.utils.plugin_paths
+        raise NameError(', '.join(plugin_paths))
 
 
 
