@@ -1057,6 +1057,8 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         )
         _localize_resources(c, language)
 
+        src_dir = c.sphinx.sourcedir
+        print(f'About to call conf.py for sphinx international {src_dir!s}')
         subprocess.check_call(
             "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
             format(sourcedir=c.sphinx.sourcedir, lang=language)
