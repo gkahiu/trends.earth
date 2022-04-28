@@ -19,6 +19,6 @@ jobs:
 
       - name: Build docs
         run:  |
-            ln -s $(pwd)/docs /docs
-            ls /docs
+            ln -s $(pwd) docs
+            ls $(pwd)
 
