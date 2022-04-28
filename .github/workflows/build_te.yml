@@ -45,6 +45,9 @@ jobs:
 
       - name: Copy plugin dir
         run:  |
-          mkdir -p -v $PLUGIN_ROOT_DIR/$PLUGIN_NAME
-          cp -r -v /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
+          mkdir -p $PLUGIN_ROOT_DIR/$PLUGIN_NAME
+          cp -r /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
           ls $PLUGIN_ROOT_DIR
+
+      - name: Install plugin
+        run: qgis_setup.sh $PLUGIN_NAME
