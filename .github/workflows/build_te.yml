@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         qgis-version-tag:
+        - qgis/qgis:release-3_22
         - qgis/qgis:release-3_24
 
     env:
