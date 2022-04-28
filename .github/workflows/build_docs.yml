@@ -20,5 +20,5 @@ jobs:
       - name: Build docs
         run:  |
             ln -s $(pwd)/docs docs
-            invoke docs-build -f
+            sphinx-intl --config docs/source/conf.py build --language=en
 
