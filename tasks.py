@@ -1057,9 +1057,16 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         )
         _localize_resources(c, language)
 
+        '''
         subprocess.check_call(
             "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
             format(sourcedir=c.sphinx.sourcedir, lang=language)
+        )
+        '''
+
+        subprocess.check_call(
+            "sphinx-intl --config docs/source/conf.py build --language={lang}".
+                format(lang=language)
         )
 
         # Build HTML docs
