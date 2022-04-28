@@ -20,5 +20,5 @@ jobs:
       - name: Build docs
         run:  |
             ln -s $(pwd)/docs docs
-            test -f docs/source/confi.py && echo "$FILE exists."
+            test -f docs/source/confi.py && echo "$FILE exists." || echo "$FILE does not exist."
 
