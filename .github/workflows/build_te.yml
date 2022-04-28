@@ -51,7 +51,6 @@ jobs:
 
       - name: Get plugin folder contents
         run:  |
-            ls /github/home/.local/share/QGIS/QGIS3/profiles/default/python/plugins
             ls /usr/share/qgis/python/plugins
 
       - name: Install plugin
