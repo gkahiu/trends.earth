@@ -19,7 +19,6 @@ jobs:
 
       - name: Build docs
         run:  |
-            pwd
-            ls -a
-            invoke docs-build -f
+            ln -s /docs $(pwd)/docs
+            ls /docs
 
