@@ -9,7 +9,14 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: ammaraskar/sphinx-action@master
-        with:
-          docs-folder: "docs/"
+      - name: Check out repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: |
+            python3 -m pip install --upgrade pip
+            python3 -m pip install -r requirements-dev.txt
+
+      - name: Build docs
+        run:  invoke docs-build -f
+
