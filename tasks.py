@@ -1057,12 +1057,6 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         )
         _localize_resources(c, language)
 
-        '''
-        subprocess.check_call(
-            "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
-            format(sourcedir=c.sphinx.sourcedir, lang=language)
-        )
-        '''
         si_lang = f'--language={language}'
         si_args = [
             'sphinx-intl', '--config', f'{c.sphinx.sourcedir}/conf.py',
@@ -1071,25 +1065,18 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         subprocess.check_call(si_args)
 
         # Build HTML docs
-
         if language != 'en' or ignore_errors:
-            subprocess.check_call(
-                "sphinx-build -b html -a {sphinx_opts} {builddir}/html/{lang}".
-                format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
-            )
+            args = [
+                'sphinx-build', '-b', 'html', '-a', SPHINX_OPTS,
+                f'{c.sphinx.builddir}/html/{language}'
+            ]
+            subprocess.check_call(args)
         else:
-            subprocess.check_call(
-                "sphinx-build -n -W -b html -a {sphinx_opts} {builddir}/html/{lang}"
-                .format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
-            )
+            args = [
+                'sphinx-build', '-n', '-W', '-b', 'html', '-a', SPHINX_OPTS,
+                f'{c.sphinx.builddir}/html/{language}'
+            ]
+            subprocess.check_call(args)
         print(
             "HTML Build finished. The HTML pages for '{lang}' are in {builddir}."
             .format(lang=language, builddir=c.sphinx.builddir)
@@ -1102,11 +1089,8 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         tex_dir = "{builddir}/latex/{lang}".format(
             builddir=c.sphinx.builddir, lang=language
         )
-        subprocess.check_call(
-            "sphinx-build -b latex -a {sphinx_opts} {tex_dir}".format(
-                sphinx_opts=SPHINX_OPTS, tex_dir=tex_dir
-            )
-        )
+        args = ['sphinx-build', '-b', 'latex', '-a', SPHINX_OPTS, tex_dir]
+        subprocess.check_call(args)
 
         for doc in c.sphinx.latex_documents:
             for n in range(3):
