@@ -44,11 +44,13 @@ jobs:
           invoke set-version -v $(cat version.txt)
 
       - name: Copy plugin to default dir
-        run:  |
-          cp -r /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
+        run:  cp -r /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
 
       - name: Install plugin
         run:  qgis_setup.sh $PLUGIN_NAME
+
+      - name: Enable plugin for processing tests
+        run:  qgis_process plugins enable $PLUGIN_NAME
 
       - name: Run tests
         run: |
