@@ -30,7 +30,7 @@ class ReportsFrameworkTests(unittest.TestCase):
 
     def test_plugin_entry(self):
         pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
-        plugin_path = QgsApplication.pluginPath()
+        plugin_path = QgsApplication.instance().pluginPath()
         raise NameError(plugin_path)
 
 
