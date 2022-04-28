@@ -16,7 +16,6 @@ jobs:
     env:
       PLUGIN_NAME: LDMP
       PLUGIN_ROOT_DIR: /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins
-      LDMP_PLUGIN_PATH: $PLUGIN_ROOT_DIR/$PLUGIN_NAME
 
     runs-on: ubuntu-latest
     container:
@@ -46,6 +45,6 @@ jobs:
 
       - name: Copy plugin dir
         run:  |
-          mkdir -p -v $LDMP_PLUGIN_PATH
+          mkdir -p -v $PLUGIN_ROOT_DIR/$PLUGIN_NAME
           cp -r -v /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
-          ls $LDMP_PLUGIN_PATH
+          ls $PLUGIN_ROOT_DIR/$PLUGIN_NAME
