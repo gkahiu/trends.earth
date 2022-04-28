@@ -50,7 +50,9 @@ jobs:
         run:  qgis_setup.sh $PLUGIN_NAME
 
       - name: Enable plugin for processing tests
-        run:  export DISPLAY=:99 && qgis_process plugins enable $PLUGIN_NAME
+        run:  |
+          sh -c "/usr/bin/Xvfb $DISPLAY -screen 0 1024x768x24 -ac +extension GLX +render -noreset -nolisten tcp &"
+          qgis_process plugins enable $PLUGIN_NAME
 
       - name: Run tests
         run: |
