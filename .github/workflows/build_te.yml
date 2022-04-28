@@ -49,9 +49,10 @@ jobs:
           cp -r /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
           ls $PLUGIN_ROOT_DIR
 
-      - name: Current user
+      - name: Get plugin folder contents
         run:  |
-            echo $USER
+            ls /github/home/.local/share/QGIS/QGIS3/profiles/default/python/plugins
+            ls /usr/share/qgis/python/plugins
 
       - name: Install plugin
         run:  qgis_setup.sh $PLUGIN_NAME
