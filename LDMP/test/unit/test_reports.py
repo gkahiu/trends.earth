@@ -1,10 +1,10 @@
 # Unit tests for the reporting framework.
 
-from configparser import ConfigParser
 import subprocess
 import unittest
 
 import qgis.utils
+from qgis.core import QgsApplication
 
 from LDMP.utils import qgis_process_path
 
@@ -28,23 +28,10 @@ class ReportsFrameworkTests(unittest.TestCase):
             'Execute qgis_process failed'
         )
 
-    '''
     def test_plugin_entry(self):
         pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
-        config = ConfigParser()
-        config.read(pt)
-        plugins = config['PythonPlugins']
-        pinfo = []
-        for p in plugins:
-            val = plugins[p]
-            info = f'{p}: {val!s}'
-            pinfo.append(info)
-        raise NameError(', '.join(pinfo))
-        # qgis.utils.updateAvailablePlugins()
-        # plugins = qgis.utils.available_plugins
-        # pstr = ', '.join(plugins)
-        # raise NameError(pstr)
-    '''
+        plugin_path = QgsApplication.pluginPath()
+        raise NameError(plugin_path)
 
 
 

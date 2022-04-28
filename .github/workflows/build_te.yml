@@ -49,8 +49,12 @@ jobs:
           cp -r /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
           ls $PLUGIN_ROOT_DIR
 
+      - name: Current user
+        run:  |
+          - echo $USER
+
       - name: Install plugin
-        run: qgis_setup.sh $PLUGIN_NAME
+        run:  qgis_setup.sh $PLUGIN_NAME
 
       - name: Run tests
         run: |
