@@ -1065,7 +1065,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         '''
 
         subprocess.check_call(
-            "sphinx-intl --config docs/source/conf.py build --language={lang}".
+            "sphinx-intl build --language={lang}".
                 format(lang=language)
         )
 
