@@ -1063,10 +1063,12 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             format(sourcedir=c.sphinx.sourcedir, lang=language)
         )
         '''
-
-        subprocess.check_call(
-            "sphinx-intl"
-        )
+        si_lang = f'--language={language}'
+        si_args = [
+            'sphinx-intl', '--config', f'{c.sphinx.sourcedir}/conf.py',
+            'build', si_lang
+        ]
+        subprocess.check_call(si_args)
 
         # Build HTML docs
 
