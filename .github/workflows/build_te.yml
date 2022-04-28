@@ -46,7 +46,7 @@ jobs:
       - name: Copy plugin dir
         run:  |
           mkdir -p $PLUGIN_ROOT_DIR/$PLUGIN_NAME
-          cp -r /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
+          cp -r /tests_directory/$PLUGIN_NAME /usr/share/qgis/python/plugins
           ls $PLUGIN_ROOT_DIR
 
       - name: Get plugin folder contents
