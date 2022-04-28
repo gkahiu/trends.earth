@@ -27,10 +27,5 @@ class ReportsFrameworkTests(unittest.TestCase):
             'Execute qgis_process failed'
         )
 
-    def test_plugin_entry(self):
-        pt = '/root/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini'
-        plugin_paths = qgis.utils.plugin_paths
-        raise NameError(', '.join(plugin_paths))
-
 
 
