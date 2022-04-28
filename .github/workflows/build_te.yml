@@ -54,5 +54,5 @@ jobs:
 
       - name: Run tests
         run: |
-            sh -c "/usr/bin/Xvfb -screen 0 1024x768x24 -ac +extension GLX +render -noreset -nolisten tcp &"
+            sh -c "/usr/bin/Xvfb :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset -nolisten tcp &"
             qgis_testrunner.sh $PLUGIN_NAME.test.testplugin.run_all
