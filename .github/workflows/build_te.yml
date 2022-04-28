@@ -50,7 +50,7 @@ jobs:
         run:  qgis_setup.sh $PLUGIN_NAME
 
       - name: Enable plugin for processing tests
-        run:  qgis_process plugins enable $PLUGIN_NAME
+        run:  /usr/bin/Xvfb $DISPLAY && qgis_process plugins enable $PLUGIN_NAME
 
       - name: Run tests
         run: |
