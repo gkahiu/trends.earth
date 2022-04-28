@@ -47,4 +47,4 @@ jobs:
         run:  |
           mkdir -p -v $PLUGIN_ROOT_DIR/$PLUGIN_NAME
           cp -r -v /tests_directory/$PLUGIN_NAME $PLUGIN_ROOT_DIR
-          ls $PLUGIN_ROOT_DIR/$PLUGIN_NAME
+          ls $PLUGIN_ROOT_DIR
