@@ -18,5 +18,8 @@ jobs:
             python3 -m pip install -r requirements-dev.txt
 
       - name: Build docs
-        run:  invoke docs-build -f
+        run:  |
+            pwd
+            ls -a
+            invoke docs-build -f
 
