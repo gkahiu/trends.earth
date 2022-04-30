@@ -119,7 +119,7 @@ rst_epilog = """
    :width: 2em
 .. |iconVisualization| image:: /static/common/icon-reporting.png
    :width: 2em
-.. |trends.earth| image:: /static/common/trends_earth_logo_bl_print.png
+.. |trends.earth| image:: ../../static/common/trends_earth_logo_bl_print.png
    :width: 7em
    :alt: Trends.Earth
 .. |logoCI| image:: /static/common/logo_CI_square.png
