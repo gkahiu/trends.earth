@@ -23,9 +23,9 @@ jobs:
         run:  |
             ln -s $(pwd)/docs docs
             mkdir -p docs/source/static
-            ls docs/source
-            sphinx-build -b html -n -T -a -D language=en -A language=en docs/source docs/build/html/en
+            cp -r docs/resources/en/common docs/source/static
             ls docs/source/static
+            sphinx-build -b html -n -a -D language=en -A language=en docs/source docs/build/html/en
 
       - name: Archive build
         uses: actions/upload-artifact@v3
