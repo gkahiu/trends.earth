@@ -22,6 +22,6 @@ jobs:
         run:  |
             ln -s $(pwd)/docs docs
             mkdir -p docs/source/static
-            ls docs/source/static
+            ls docs/source
             sphinx-build -b html -n -W -a -D language=en -A language=en docs/source docs/build/html/en
 
