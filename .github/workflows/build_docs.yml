@@ -1,4 +1,4 @@
-name: build docs
+name: docs
 
 on:
   push:
@@ -26,4 +26,11 @@ jobs:
             ls docs/source
             sphinx-build -b html -n -T -a -D language=en -A language=en docs/source docs/build/html/en
             ls docs/source/static
+
+      - name: Archive build
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs_build
+          path: docs/build
+          retention-days: 1
 
