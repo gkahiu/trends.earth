@@ -299,28 +299,31 @@ item_scope_mapping
 ~~~~~~~~~~~~~~~~~~
 Provides a mechanism for grouping layout items based on a scope (i.e. algorithm).
 
-+-------------------+----------------------------------------------------------------------------------+----------+
-| Property Name     | Description                                                                      | Required |
-+===================+==================================================================================+==========+
-| `name`            | Name of the algorithm that will be matched to this configuration                 | Yes      |
-|                   | e.g. `productivity`, `sdg-15-3-1-sub-indicators` etc. Refers to the algorithm    |          |
-|                   | names defined in `scripts.json` in the toolbox's data folder.                    |          |
-+-------------------+----------------------------------------------------------------------------------+----------+
-| `type_id_mapping` | A dictionary containing an enumeration of the layout item type and corresponding | Yes      |
-|                   | list of item IDs defined in the template.                                        |          |
-|                   |                                                                                  |          |
-|                   | Supported layout item types include: **map**, **label**, **picture**             |          |
-|                   |                                                                                  |          |
-|                   | .. code-block:: json                                                             |          |
-|                   |     {                                                                            |          |
-|                   |         "type_id_mapping":{                                                      |          |
-|                   |            "map":["map.main"],                                                   |          |
-|                   |            "label":["label.layer_title"]                                         |          |
-|                   |         }                                                                        |          |
-|                   |     }                                                                            |          |
-|                   |                                                                                  |          |
-|                   | See :ref:`adding_layout_items` on how to specify item IDs.                       |          |
-+-------------------+----------------------------------------------------------------------------------+----------+
++-------------------+------------------------------------------------------------+----------+
+| Property Name     | Description                                                | Required |
++===================+============================================================+==========+
+| `name`            | Name of the algorithm that will be matched to              | Yes      |
+|                   | this configuration e.g. `productivity`,                    |          |
+|                   | `sdg-15-3-1-sub-indicators` etc. Refers to the             |          |
+|                   | algorithm names defined in `scripts.json` in the           |          |
+|                   | toolbox's data folder.                                     |          |
++-------------------+------------------------------------------------------------+----------+
+| `type_id_mapping` | A dictionary containing an enumeration of the              | Yes      |
+|                   | layout item type and corresponding list of item            |          |
+|                   | IDs defined in the template. Supported layout              |          |
+|                   | item types include: **map**, **label**, **picture**        |          |
+|                   | .. code-block:: json                                       |          |
+|                   |                                                            |          |
+|                   | {                                                          |          |
+|                   |     "type_id_mapping":{                                    |          |
+|                   | 	  "map":["map.main"],                                    |          |
+|                   | 	  "label":["label.layer_title"]                          |          |
+|                   | 	}                                                        |          |
+|                   | }                                                          |          |
+|                   |                                                            |          |
+|                   |                                                            |          |
+|                   | See :ref:`adding_layout_items` on how to specify item IDs. |          |
++-------------------+------------------------------------------------------------+----------+
 
 .. _output_format:
 
