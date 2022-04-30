@@ -312,12 +312,12 @@ Provides a mechanism for grouping layout items based on a scope (i.e. algorithm)
 |                   | Supported layout item types include: **map**, **label**, **picture**             |          |
 |                   |                                                                                  |          |
 |                   | .. code-block:: json                                                             |          |
-|                   |                                                                                  |          |
-|                   |     "type_id_mapping":{                                                          |          |
-|                   |        "map":["map.main"],                                                       |          |
-|                   |        "label":["label.layer_title"]                                             |          |
+|                   |     {                                                                            |          |
+|                   |         "type_id_mapping":{                                                      |          |
+|                   |            "map":["map.main"],                                                   |          |
+|                   |            "label":["label.layer_title"]                                         |          |
+|                   |         }                                                                        |          |
 |                   |     }                                                                            |          |
-|                   |                                                                                  |          |
 |                   |                                                                                  |          |
 |                   | See :ref:`adding_layout_items` on how to specify item IDs.                       |          |
 +-------------------+----------------------------------------------------------------------------------+----------+
