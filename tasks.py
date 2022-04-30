@@ -1079,7 +1079,8 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             ]
             args2 = ['sphinx-build', '-b', 'html', '-n', '-W', '-a', '-D', 'language=en', '-A', 'language=en', 'docs/source',
              'docs/build/html/en']
-            subprocess.check_call(args2)
+            args3 = ['sphinx-build', '-b', 'html', 'docs/source', 'docs/build/html/en']
+            subprocess.check_call(args3)
         print(
             "HTML Build finished. The HTML pages for '{lang}' are in {builddir}."
             .format(lang=language, builddir=c.sphinx.builddir)

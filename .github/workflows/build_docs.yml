@@ -20,5 +20,5 @@ jobs:
       - name: Build docs
         run:  |
             ln -s $(pwd)/docs docs
-            invoke docs-build -f
+            sphinx-build -b html -n -W -a -D language=en -A language=en docs/source docs/build/html/en
 
